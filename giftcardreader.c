@@ -28,16 +28,24 @@ void animate(char *msg, unsigned char *program) {
             case 0x00:
                 break;
             case 0x01:
-                regs[arg1] = *mptr;
+            //Fuzz 2 Fix
+                if(arg1 >= 0 && arg1 <=15){
+                   regs[arg1] = *mptr;
+                }
                 break;
             case 0x02:
                 *mptr = regs[arg1];
                 break;
             case 0x03:
-                mptr += (char)arg1;
+            //Fuzz 1 Fix
+                if (mptr < (msg + 31)){
+                    mptr += (char)arg1;
+                }
                 break;
             case 0x04:
-                regs[arg2] = arg1;
+                if(arg2 >= 0 && arg2 <=15){
+                    regs[arg2] = arg1;
+                }
                 break;
             case 0x05:
                 regs[arg1] ^= regs[arg2];
@@ -53,7 +61,9 @@ void animate(char *msg, unsigned char *program) {
             case 0x08:
                 goto done;
             case 0x09:
-                pc += (char)arg1;
+                if(arg1<15){
+                    pc += (char)arg1;
+                }
                 break;
             case 0x10:
                 if (zf) pc += (char)arg1;
@@ -186,6 +196,10 @@ struct this_gift_card *gift_card_reader(FILE *input_fd) {
 		fread(&ret_val->num_bytes, 4,1, input_fd);
 
 		// Make something the size of the rest and read it in
+        if(ret_val->num_bytes < 0){
+            printf("NumBytes too large\n");
+            exit(0);
+        }
 		ptr = malloc(ret_val->num_bytes);
 		fread(ptr, ret_val->num_bytes, 1, input_fd);
 
@@ -261,10 +275,16 @@ struct this_gift_card *thisone;
 
 int main(int argc, char **argv) {
     // BDG: no argument checking?
-	FILE *input_fd = fopen(argv[2],"r");
+    if(argv[2] == NULL){
+        printf("No Gift Card Presented\n");
+        return -1;
+    }
+    else{
+        FILE *input_fd = fopen(argv[2],"r");
 	thisone = gift_card_reader(input_fd);
 	if (argv[1][0] == '1') print_gift_card_info(thisone);
     else if (argv[1][0] == '2') gift_card_json(thisone);
 
 	return 0;
+    }
 }

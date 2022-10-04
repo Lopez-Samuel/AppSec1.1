@@ -84,7 +84,6 @@ struct gift_card_record_data {
 };
 
 
-
 struct gift_card_amount_change {
 	int amount_added;
 	// always 32 bytes.  Only appears if amount_added is positive
