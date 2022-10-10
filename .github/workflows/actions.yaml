@@ -17,6 +17,19 @@ jobs:
       run: ./configure
     - name: make
       run: make
-      name: crash1
-      run: make
+    - name: crash1
+      run: ./giftcardreader 1 tests/crash1.gft
+    - name: hang
+      run: ./giftcardreader 1 tests/hang.gft
+    - name: cov1
+      run: ./giftcardreader 1 fuzz/cov1.gft
+    - name: cov2
+      run: ./giftcardreader 1 fuzz/cov2.gft
+    - name: fuzz1
+      run: ./giftcardreader 1 fuzz/fuzz1.gft
+    - name: fuzz2
+      run: ./giftcardreader 1 fuzz/fuzz2.gft
+      
+      
+      
       
