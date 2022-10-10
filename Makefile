@@ -3,4 +3,9 @@ giftcardreader: giftcardreader.c
 
 
 giftcardexamplewriter:
+<<<<<<< HEAD
 	gcc -o giftcardexamplewriter giftcardexamplewriter.c && ./giftcardexamplewriter
+=======
+	gcc -o giftcardexamplewriter giftcardexamplewriter.c && ./giftcardexamplewriter
+
+>>>>>>> refs/remotes/origin/main
