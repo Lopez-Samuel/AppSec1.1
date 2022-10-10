@@ -196,6 +196,7 @@ struct this_gift_card *gift_card_reader(FILE *input_fd) {
 		fread(&ret_val->num_bytes, 4,1, input_fd);
 
 		// Make something the size of the rest and read it in
+        // Crash1
         if(ret_val->num_bytes < 0){
             printf("NumBytes too large\n");
             exit(0);
@@ -284,7 +285,6 @@ int main(int argc, char **argv) {
 	thisone = gift_card_reader(input_fd);
 	if (argv[1][0] == '1') print_gift_card_info(thisone);
     else if (argv[1][0] == '2') gift_card_json(thisone);
-
 	return 0;
     }
 }
