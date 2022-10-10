@@ -27,7 +27,3 @@ jobs:
       run: ./giftcardreader 1 fuzz/fuzz1.gft
     - name: fuzz2
       run: ./giftcardreader 1 fuzz/fuzz2.gft
-      
-      
-      
-      
