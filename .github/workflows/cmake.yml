@@ -26,8 +26,6 @@ jobs:
         sudo apt-get install libc6
     - name: make
       run: make
-    - name: crash1
-      run: ./giftcardreader 1 tests/crash1.gft
     - name: hang
       run: ./giftcardreader 1 tests/hang.gft
     - name: cov1
@@ -38,4 +36,6 @@ jobs:
       run: ./giftcardreader 1 fuzz/fuzz1.gft
     - name: fuzz2
       run: ./giftcardreader 1 fuzz/fuzz2.gft
+    - name: crash1
+      run: ./giftcardreader 1 tests/crash1.gft
       
